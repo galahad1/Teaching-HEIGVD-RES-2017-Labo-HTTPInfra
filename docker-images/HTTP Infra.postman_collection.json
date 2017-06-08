@@ -1,0 +1,69 @@
+{
+	"variables": [],
+	"info": {
+		"name": "HTTP Infra",
+		"_postman_id": "92787e16-1b39-1b10-5cb1-f34e3835330d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Task 2 : GET JSON Random Addresses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var schema = {",
+							" \"type\": \"object\",",
+							" \"properties\": {",
+							"        \"street\": {",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"postal\": {",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"city\": {",
+							"            \"type\": \"string\"",
+							"        },",
+							"        \"country\": {",
+							"            \"type\": \"string\"",
+							"        }",
+							"    },",
+							"    \"required\": [\"street\", \"postal\", \"city\",\"country\"]",
+							"};",
+							"",
+							"var data1 = {",
+							"    \"street\": \"125 Ifwa Manor\",",
+							"    \"postal\": \"T3M 3A7\",",
+							"    \"city\": \"Ivgivep\",",
+							"    \"country\": \"Guinea\"",
+							"};",
+							"",
+							"var data2 = {",
+							"    \"street\": 4477,",
+							"    \"postal\": \"H9P 8I8\",",
+							"    \"city\": \"Vomihu\"",
+							"};",
+							"",
+							"tests[\"Valid Data1\"] = tv4.validate(data1, schema);",
+							"tests[\"Valid Data2\"] = !tv4.validate(data2, schema);",
+							"console.log(\"Validation failed: \", tv4.error);",
+							"",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": " http://192.168.99.100:9091/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
