@@ -1,7 +1,19 @@
 FROM php:7.0-apache
 
+LABEL maintainer Tano Iannetta <tano.iannetta@heig-vd.ch>
+LABEL maintainer Loan Lassalle <loan.lassalle@heig-vd.ch>
+
 RUN apt-get update && apt-get install -y vim
 
-COPY conf/ /etc/apache2/
+COPY ./conf/ /etc/apache2/
+COPY ./apache2-foreground.sh /opt/app/apache2-foreground.sh
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
+ENV APACHE_PID_FILE /var/run/apache2.pid
 
 RUN a2enmod proxy proxy_http && a2ensite 000-* 001-*
+
+CMD ["sh", "/opt/app/apache2-foreground.sh"]
