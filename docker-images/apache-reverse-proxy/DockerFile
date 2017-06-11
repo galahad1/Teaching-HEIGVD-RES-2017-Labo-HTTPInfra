@@ -3,6 +3,6 @@ FROM php:7.0-apache
 LABEL maintainer Tano Iannetta <tano.iannetta@heig-vd.ch>
 LABEL maintainer Loan Lassalle <loan.lassalle@heig-vd.ch>
 
-COPY conf/ /etc/apache2/
+COPY ./conf/ /etc/apache2/
 
 RUN a2enmod proxy proxy_http && a2ensite 000-* 001-*
