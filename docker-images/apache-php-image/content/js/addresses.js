@@ -16,5 +16,5 @@ $(function() {
     }
 
     loadAddresses();
-    setInterval(loadAddresses, 2000);
+    setInterval(loadAddresses, 1000);
 });
