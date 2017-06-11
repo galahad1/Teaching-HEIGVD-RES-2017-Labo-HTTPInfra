@@ -5,6 +5,7 @@ LABEL maintainer Loan Lassalle <loan.lassalle@heig-vd.ch>
 
 LABEL "traefik.backend"="apache_static"
 LABEL "traefik.frontend.rule"="Host: demo.res.ch;PathPrefix: /"
+LABEL "traefik.backend.loadbalancer.sticky"="true"
 
 RUN apt-get update && apt-get install -y vim
 
