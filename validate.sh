@@ -5,6 +5,7 @@ HOST="demo.res.ch"
 function show_help
 {
 	echo "$1 is not a valid argument"
+    echo "The parameter can be \"step1\",\"step2\",\"step3\",\"step4\",\"step5\",\"step61\" or \"step62\""
 }
 
 function stop_all
