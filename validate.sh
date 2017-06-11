@@ -5,6 +5,7 @@ HOST="demo.res.ch"
 function show_help
 {
 	echo "$1 is not a valid argument"
+    echo "The parameter can be \"step1\",\"step2\",\"step3\",\"step4\",\"step5\",\"step61\" or \"step62\""
 }
 
 function stop_all {
@@ -116,25 +117,30 @@ function start_step61
 	start "http://$HOST:$site_port/"
 	start "http://$HOST:$monitor_port/"
     docker attach traefik
-}
+# }
 
-## Main
-case $1 in
-	"step1" ) start_step1
-		;;
-	"step2" ) start_step2
-		;;
-	"step3" ) start_step3
-		;;
-	"step4" ) start_step4
-		;;
-	"step5" ) start_step5
-		;;
-	"step61"|"step62" ) start_step61
-		;;
-	  * ) show_help
-esac
+# Main
+# error=false
 
-read -p "Press any key to close all docker container ..."
+# case $1 in
+	# "step1" ) start_step1
+		# ;;
+	# "step2" ) start_step2
+		# ;;
+	# "step3" ) start_step3
+		# ;;
+	# "step4" ) start_step4
+		# ;;
+	# "step5" ) start_step5
+		# ;;
+	# "step61"|"step62" ) start_step61
+		# ;;
+	  # * ) error=true; show_help
+# esac
 
-stop_all
+# read -p "Press any key to close all docker container ..."
+
+# if ! $error
+# then
+    # stop_all
+# fi
