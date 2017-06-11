@@ -72,6 +72,8 @@ function start_step4
 }
 
 ## Main
+error=false
+
 case $1 in
 	"step1" ) start_step1
 		;;
@@ -81,9 +83,12 @@ case $1 in
 		;;
 	"step4" ) start_step4
 		;;
-	  * ) show_help
+	  * ) error=true; show_help
 esac
 
 read -p "Press any key to close all docker container ..."
 
-stop_all
+if ! $error
+then
+    stop_all
+fi
