@@ -5,6 +5,7 @@ HOST="demo.res.ch"
 function show_help
 {
 	echo "$1 is not a valid argument"
+    echo "The parameter can be \"step1\""
 }
 
 function stop_all
@@ -28,9 +29,12 @@ function start_step1
 case $1 in
 	"step1" ) start_step1
 		;;
-	  * ) show_help
+	  * ) error=true; show_help
 esac
 
 read -p "Press any key to close all docker container ..."
 
-stop_all
+if ! $error
+then
+    stop_all
+fi
