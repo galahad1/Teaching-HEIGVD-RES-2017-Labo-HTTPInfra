@@ -117,30 +117,30 @@ function start_step61
 	start "http://$HOST:$site_port/"
 	start "http://$HOST:$monitor_port/"
     docker attach traefik
-# }
+}
 
 # Main
-# error=false
+error=false
 
-# case $1 in
-	# "step1" ) start_step1
-		# ;;
-	# "step2" ) start_step2
-		# ;;
-	# "step3" ) start_step3
-		# ;;
-	# "step4" ) start_step4
-		# ;;
-	# "step5" ) start_step5
-		# ;;
-	# "step61"|"step62" ) start_step61
-		# ;;
-	  # * ) error=true; show_help
-# esac
+case $1 in
+	"step1" ) start_step1
+		;;
+	"step2" ) start_step2
+		;;
+	"step3" ) start_step3
+		;;
+	"step4" ) start_step4
+		;;
+	"step5" ) start_step5
+		;;
+	"step61"|"step62" ) start_step61
+		;;
+	  * ) error=true; show_help
+esac
 
-# read -p "Press any key to close all docker container ..."
+read -p "Press any key to close all docker container ..."
 
-# if ! $error
-# then
-    # stop_all
-# fi
+if ! $error
+then
+    stop_all
+fi
