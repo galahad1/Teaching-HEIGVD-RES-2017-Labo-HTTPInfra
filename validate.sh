@@ -2,7 +2,12 @@
 
 HOST="demo.res.ch"
 
-if [ -z ${WINDIR+x} ]; then BROWSER=xdg-open; else BROWSER=start; fi
+if [ -z ${WINDIR+x} ]
+then
+    BROWSER=xdg-open
+else 
+    BROWSER=start
+fi
 
 function show_help {
     echo "$1 is not a valid argument"
