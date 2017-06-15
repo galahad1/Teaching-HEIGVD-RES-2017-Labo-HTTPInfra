@@ -2,21 +2,18 @@
 
 HOST="demo.res.ch"
 
-function show_help
-{
+function show_help {
     echo "$1 is not a valid argument"
     echo "The parameter can be \"step1\",\"step2\",\"step3\" or \"step4\""
 }
 
-function stop_all
-{
+function stop_all {
     echo "Stopping all launched container"
     docker kill $(docker ps -aq)
     docker rm $(docker ps -aq)
 }
 
-function start_step1
-{
+function start_step1 {
     local port=9090
     
     echo "Starting step 1"
@@ -25,8 +22,7 @@ function start_step1
     start "http://$HOST:$port"
 }
 
-function start_step2
-{    
+function start_step2 {    
     local port=3000
     
     echo "Starting step 2"
@@ -35,8 +31,7 @@ function start_step2
     start "http://$HOST:$port/"
 }
 
-function start_step3
-{
+function start_step3 {
     local port=8080
     
     echo "Starting step 3"
@@ -54,8 +49,7 @@ function start_step3
     start "http://$HOST:$port/api/addresses/"
 }
 
-function start_step4
-{
+function start_step4 {
     local port=8080
     
     echo "Starting step 4"
