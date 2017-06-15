@@ -26,7 +26,7 @@ function start_step1 {
     echo "Starting step 1"
     docker build -t res/apache_php ./docker-images/apache-php-image
     docker run -d --name apache_static -p $port:80 res/apache_php
-    BROWSER "http://$HOST:$port"
+    $BROWSER "http://$HOST:$port"
 }
 
 function start_step2 {    
@@ -35,7 +35,7 @@ function start_step2 {
     echo "Starting step 2"
     docker build -t res/express_addresses ./docker-images/express-image
     docker run -d --name express_dynamic -p $port:3000 res/express_addresses
-    BROWSER "http://$HOST:$port/"
+    $BROWSER "http://$HOST:$port/"
 }
 
 function start_step3 {
@@ -52,8 +52,8 @@ function start_step3 {
     
     docker build -t res/apache_rp ./docker-images/apache-reverse-proxy
     docker run -d --name apache_rp -p $port:80 res/apache_rp
-    BROWSER "http://$HOST:$port/"
-    BROWSER "http://$HOST:$port/api/addresses/"
+    $BROWSER "http://$HOST:$port/"
+    $BROWSER "http://$HOST:$port/api/addresses/"
 }
 
 function start_step4 {
@@ -70,7 +70,7 @@ function start_step4 {
 
     docker build -t res/apache_rp ./docker-images/apache-reverse-proxy
     docker run -d --name apache_rp -p $port:80 res/apache_rp
-    BROWSER "http://$HOST:$port/"
+    $BROWSER "http://$HOST:$port/"
 }
 
 function get_last_container_ip {
@@ -96,7 +96,7 @@ function start_step5 {
     docker build -t res/apache_rp ./docker-images/apache-reverse-proxy
     docker run -d --name apache_rp -p $port:80 -e IP_APACHE_STATIC=$ip_apache_static \
         -e IP_EXPRESS_DYNAMIC=$ip_express_dynamic res/apache_rp
-    BROWSER "http://$HOST:$port/"
+    $BROWSER "http://$HOST:$port/"
 
     echo $ip_apache_static $ip_express_dynamic
 }
@@ -118,8 +118,8 @@ function start_step61 {
     docker build -t res/traefik ./docker-images/traefik 
     docker run -d --name traefik -p $monitor_port:8080 -p $site_port:80 -v /var/run/docker.sock:/var/run/docker.sock res/traefik
 
-    BROWSER "http://$HOST:$site_port/"
-    BROWSER "http://$HOST:$monitor_port/"
+    $BROWSER "http://$HOST:$site_port/"
+    $BROWSER "http://$HOST:$monitor_port/"
     docker attach traefik
 }
 
