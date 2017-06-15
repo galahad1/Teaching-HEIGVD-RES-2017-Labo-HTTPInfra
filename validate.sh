@@ -4,9 +4,9 @@ HOST="demo.res.ch"
 
 if [ -z ${WINDIR+x} ]
 then
-    START_UTILITY=xdg-open
-else
-    START_UTILITY=start
+    BROWSER=xdg-open
+else 
+    BROWSER=start
 fi
 
 function show_help {
