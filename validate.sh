@@ -85,7 +85,7 @@ case $1 in
         ;;
     "step4" ) start_step4
         ;;
-     * ) error=true; show_help
+    * ) error=true; show_help
 esac
 
 read -p "Press any key to close all docker container ..."
