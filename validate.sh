@@ -20,28 +20,28 @@ function stop_all {
     docker rm $(docker ps -aq)
 }
 
-function BROWSER_step1 {
+function start_step1 {
     local port=9090
     
-    echo "BROWSERing step 1"
+    echo "Starting step 1"
     docker build -t res/apache_php ./docker-images/apache-php-image
     docker run -d --name apache_static -p $port:80 res/apache_php
-    BROWSER "http://$HOST:$port"
+    $BROWSER "http://$HOST:$port"
 }
 
-function BROWSER_step2 {    
+function start_step2 {    
     local port=3000
     
-    echo "BROWSERing step 2"
+    echo "Starting step 2"
     docker build -t res/express_addresses ./docker-images/express-image
     docker run -d --name express_dynamic -p $port:3000 res/express_addresses
-    BROWSER "http://$HOST:$port/"
+    $BROWSER "http://$HOST:$port/"
 }
 
-function BROWSER_step3 {
+function start_step3 {
     local port=8080
     
-    echo "BROWSERing step 3"
+    echo "Starting step 3"
     echo "Do not forget to add $HOST to your hosts file for correct DNS resolving."
     
     docker build -t res/apache_php ./docker-images/apache-php-image
@@ -52,14 +52,14 @@ function BROWSER_step3 {
     
     docker build -t res/apache_rp ./docker-images/apache-reverse-proxy
     docker run -d --name apache_rp -p $port:80 res/apache_rp
-    BROWSER "http://$HOST:$port/"
-    BROWSER "http://$HOST:$port/api/addresses/"
+    $BROWSER "http://$HOST:$port/"
+    $BROWSER "http://$HOST:$port/api/addresses/"
 }
 
-function BROWSER_step4 {
+function start_step4 {
     local port=8080
     
-    echo "BROWSERing step 4"
+    echo "Starting step 4"
     echo "Do not forget to add $HOST to your hosts file for correct DNS resolving."
     
     docker build -t res/apache_php ./docker-images/apache-php-image
@@ -70,17 +70,17 @@ function BROWSER_step4 {
 
     docker build -t res/apache_rp ./docker-images/apache-reverse-proxy
     docker run -d --name apache_rp -p $port:80 res/apache_rp
-    BROWSER "http://$HOST:$port/"
+    $BROWSER "http://$HOST:$port/"
 }
 
 function get_last_container_ip {
     docker inspect $1 | grep "\"IPAddress\"" -m 1 | grep -o "[0-9.]\+"
 }
 
-function BROWSER_step5 {
+function start_step5 {
     local port=8080
     
-    echo "BROWSERing step 5"
+    echo "Starting step 5"
     echo "Do not forget to add $HOST to your hosts file for correct DNS resolving."
     
     docker build -t res/apache_php ./docker-images/apache-php-image
@@ -96,7 +96,7 @@ function BROWSER_step5 {
     docker build -t res/apache_rp ./docker-images/apache-reverse-proxy
     docker run -d --name apache_rp -p $port:80 -e IP_APACHE_STATIC=$ip_apache_static \
         -e IP_EXPRESS_DYNAMIC=$ip_express_dynamic res/apache_rp
-    BROWSER "http://$HOST:$port/"
+    $BROWSER "http://$HOST:$port/"
 
     echo $ip_apache_static $ip_express_dynamic
 }
@@ -105,15 +105,15 @@ function BROWSER_step5 {
 error=false;
 
 case $1 in
-    "step1" ) BROWSER_step1
+    "step1" ) start_step1
         ;;
-    "step2" ) BROWSER_step2
+    "step2" ) start_step2
         ;;
-    "step3" ) BROWSER_step3
+    "step3" ) start_step3
         ;;
-    "step4" ) BROWSER_step4
+    "step4" ) start_step4
         ;;
-    "step5" ) BROWSER_step5
+    "step5" ) start_step5
         ;;
     * ) error=true; show_help
 esac
