@@ -8,8 +8,7 @@ function stop_all {
     docker rm $(docker ps -aq)
 }
 
-function validate
-{
+function validate {
     local site_port=8080
     local monitor_port=9090
     
