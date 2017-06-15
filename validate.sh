@@ -2,41 +2,38 @@
 
 HOST="demo.res.ch"
 
-function show_help
-{
+if [ -z ${WINDIR+x} ]; then BROWSER=xdg-open; else BROWSER=start; fi
+
+function show_help {
     echo "$1 is not a valid argument"
     echo "The parameter can be \"step1\",\"step2\" or \"step3\""
 }
 
-function stop_all
-{
+function stop_all {
     echo "Stopping all launched container"
     docker kill $(docker ps -aq)
     docker rm $(docker ps -aq)
 }
 
-function start_step1
-{
+function start_step1 {
     local port=9090
     
     echo "Starting step 1"
     docker build -t res/apache_php ./docker-images/apache-php-image
     docker run -d --name apache_static -p $port:80 res/apache_php
-    start "http://$HOST:$port"
+    BROWSER "http://$HOST:$port"
 }
 
-function start_step2
-{    
+function start_step2 {    
     local port=3000
     
     echo "Starting step 2"
     docker build -t res/express_addresses ./docker-images/express-image
     docker run -d --name express_dynamic -p $port:3000 res/express_addresses
-    start "http://$HOST:$port/"
+    BROWSER "http://$HOST:$port/"
 }
 
-function start_step3
-{
+function start_step3 {
     local port=8080
     
     echo "Starting step 3"
@@ -50,8 +47,8 @@ function start_step3
     
     docker build -t res/apache_rp ./docker-images/apache-reverse-proxy
     docker run -d --name apache_rp -p $port:80 res/apache_rp
-    start "http://$HOST:$port/"
-    start "http://$HOST:$port/api/addresses/"
+    BROWSER "http://$HOST:$port/"
+    BROWSER "http://$HOST:$port/api/addresses/"
 }
 
 ## Main
