@@ -26,7 +26,7 @@ function start_step1 {
     echo "Starting step 1"
     docker build -t res/apache_php ./docker-images/apache-php-image
     docker run -d --name apache_static -p $port:80 res/apache_php
-    BROWSER "http://$HOST:$port"
+    $BROWSER "http://$HOST:$port"
 }
 
 ## Main
