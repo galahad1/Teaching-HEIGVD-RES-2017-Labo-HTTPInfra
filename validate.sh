@@ -6,6 +6,7 @@ function show_help
 {
     echo "$1 is not a valid argument"
     echo "The parameter can be \"step1\" or \"step2\""
+}
 
 function stop_all
 {
