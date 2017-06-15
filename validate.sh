@@ -2,6 +2,13 @@
 
 HOST="demo.res.ch"
 
+if [ -z ${WINDIR+x} ]
+then
+    BROWSER=xdg-open
+else 
+    BROWSER=start
+fi
+
 function stop_all {
     echo "Stopping all launched container"
     docker kill $(docker ps -aq)
@@ -25,8 +32,8 @@ function validate {
     docker build -t res/traefik ./docker-images/traefik 
     docker run -d --name traefik -p $monitor_port:8080 -p $site_port:80 -v /var/run/docker.sock:/var/run/docker.sock res/traefik
 
-    start "http://$HOST:$site_port/"
-    start "http://$HOST:$monitor_port/"
+    $BROWSER "http://$HOST:$site_port/"
+    $BROWSER "http://$HOST:$monitor_port/"
     docker attach traefik
 }
 
